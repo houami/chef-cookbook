@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+    driver:
+      network:
+        - ["forwarded_port", {guest: 80, host: 8123}]
+        - ["private_network", {ip: "192.168.56.1"}]
+    run_list:
+      - recipe[hwk::default]
+
+  - name: ubuntu-16.04
+    driver:
+      network:
+        - ["private_network", {ip: "192.168.46.12"}]
+    run_list:
+     - recipe[hwk::slavesetup]
+suites:
+- name: default     
